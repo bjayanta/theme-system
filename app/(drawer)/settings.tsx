@@ -7,7 +7,8 @@ import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { Switch } from "react-native-gesture-handler";
 
 export default function Settings() {
-  const { currentTheme, toggleTheme } = useContext(ThemeContext);
+  const { currentTheme, toggleTheme, useSystemTheme, isSystemTheme } =
+    useContext(ThemeContext);
 
   return (
     <>
@@ -78,19 +79,19 @@ export default function Settings() {
           title="Light"
           icon="lightbulb-on"
           onPress={() => toggleTheme("light")}
-          isActive={currentTheme === "light"}
+          isActive={!isSystemTheme && currentTheme === "light"}
         />
         <SettingsButton
           title="Dark"
           icon="weather-night"
           onPress={() => toggleTheme("dark")}
-          isActive={currentTheme === "dark"}
+          isActive={!isSystemTheme && currentTheme === "dark"}
         />
         <SettingsButton
           title="System"
           icon="theme-light-dark"
-          onPress={() => toggleTheme("system")}
-          isActive={false}
+          onPress={useSystemTheme}
+          isActive={isSystemTheme}
         />
       </View>
     </>
